@@ -1,0 +1,14 @@
+{
+  "name": "cypress-projects",
+  "version": "1.0.0",
+  "description": "Repository for the projects in JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aleksandar Jovanovic",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^12.15.0"
+  }
+}
