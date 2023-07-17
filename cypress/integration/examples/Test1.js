@@ -30,10 +30,11 @@ describe('My First Test Suite', function()
          
          //grabbing the text for validations
          if(textVeg.includes('Cashews'))
+         {
          //the scope is only on one product -> only one tag 'button'
          //click is deprecated for the unresolved promise (state or step behaviour) -> solution 1 is to wrap the promise!
           cy.wrap($el).find('button').click()
-          
+         }
           //click is deprecated for the unresolved promise -> solution 2 is to use trigger method!
           // $el.find('button').trigger('click')
         })
