@@ -4,6 +4,7 @@ import "cypress-iframe"
 
 describe('My Eight Test Suite', function()
   {
+    
     it('My Eight Test Case', function()
       {
 
@@ -22,3 +23,4 @@ describe('My Eight Test Suite', function()
   }
 ) 
 
+//initialize global variable
