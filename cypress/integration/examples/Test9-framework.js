@@ -15,7 +15,7 @@ describe('My Nineth Test Suite', function()
 
     it('My Nineth Test Case', function()
       {
-        cy.visit('https://rahulshettyacademy.com/angularpractice/')
+        cy.visit(Cypress.env('url') + "/angularpractice/")
         cy.get('input[name="name"]:nth-child(2)').type(this.data.name)
         cy.get('select').select(this.data.gender)
 
@@ -29,7 +29,8 @@ describe('My Nineth Test Suite', function()
         // cy.selectProduct('Blackberry')
         // cy.selectProduct('Nokia Edge')
 
-        //parameterizing test data from json file using each command - for more info review example.json/commands.js files!
+        //parameterizing test data from json file using each command ->
+        //for more info review example.json/commands.js files!
         this.data.productName.forEach(function(element)
         {
           cy.selectProduct(element)

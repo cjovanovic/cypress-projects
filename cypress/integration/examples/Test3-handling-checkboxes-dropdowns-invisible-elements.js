@@ -4,7 +4,7 @@ describe('My Third Test Suite', function()
   {
     it('My Third Test Case', function()
       {
-        cy.visit("https://rahulshettyacademy.com/AutomationPractice/")
+        cy.visit(Cypress.env('url') + "/AutomationPractice/")
 
         //checkbox verify and multiple assertion/validation - be -> behaviour, have -> property comparing!
         cy.get('#checkBoxOption1').check().should('be.checked').and('have.value', 'option1')

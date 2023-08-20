@@ -4,7 +4,7 @@ describe('My Sixth Test Suite', function()
   {
     it('My Sixth Test Case', function()
       {
-        cy.visit("https://rahulshettyacademy.com/AutomationPractice/")
+        cy.visit(Cypress.env('url') + "/AutomationPractice/")
 
         //invoke jQuery show() function
         cy.get('div.mouse-hover-content').invoke('show')

@@ -29,7 +29,9 @@ describe('My 10th Test Suite', function() {
         const checkoutPage = new CheckoutPage()
         const purchasePage = new PurchasePage()
 
-        cy.visit('https://rahulshettyacademy.com/angularpractice/')
+        //use environmental variable
+        cy.visit(Cypress.env('url') + "/angularpractice/")
+        
         homePage.getEditBox().type(this.data.name)
         homePage.getGender().select(this.data.gender)
 
@@ -46,12 +48,44 @@ describe('My 10th Test Suite', function() {
           cy.selectProduct(element)
         })
         productPage.checkOutButton().click()
+
+        //start sum the values
+        let sum = 0
+
+        //get all price values, split, trim and convert to integer
+        checkoutPage.getPriceValues().each(($el, index, $list) => {
+        
+            const amount = $el.text()
+            let result = amount.split(' ')
+            result = result[1].trim()
+            
+            //convert to integer
+            sum = Number(sum) + Number(result)
+
+        }).then(function()
+        {
+            cy.log(sum)
+        })
+
+        checkoutPage.getTotalValue().then(function(element)
+        {
+
+          const amount = element.text()
+          let total = amount.split(' ')
+          total = total[1].trim()
+          
+          //'total' need to be convert to integer as well!
+          expect(Number(total)).to.equal(sum)
+
+        })
+
         checkoutPage.checkOutButton().click()
         purchasePage.getCountry().type('ser')
         
         //custom timeout
         Cypress.config('defaultCommandTimeout', 8000)
         purchasePage.getCountryResult().click()
+
         //error -> is being covered by another element -> 
         //using {force: true} to disable error checking
         purchasePage.purchaseCheckbox().click({force: true})

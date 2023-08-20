@@ -8,7 +8,7 @@ describe('My Eight Test Suite', function()
     it('My Eight Test Case', function()
       {
 
-        cy.visit("https://rahulshettyacademy.com/AutomationPractice/")
+        cy.visit(Cypress.env('url') + "/AutomationPractice/")
         
         //loading iframe into the cypress object
         cy.frameLoaded('#courses-iframe')
@@ -23,4 +23,3 @@ describe('My Eight Test Suite', function()
   }
 ) 
 
-//initialize global variable

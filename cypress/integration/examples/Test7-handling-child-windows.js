@@ -5,7 +5,7 @@ describe('My Seventh Test Suite', function()
     it('My Seventh Test Case', function()
       {
         //url -> rahulshettyacademy.com
-        cy.visit("https://rahulshettyacademy.com/AutomationPractice/")
+        cy.visit(Cypress.env('url') + "/AutomationPractice/")
 
         //resolve the promise
         cy.get('#opentab').then(function(el)

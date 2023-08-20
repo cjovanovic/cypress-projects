@@ -4,7 +4,11 @@
   "description": "Repository for the projects in JS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/cypress run",
+    "headTest": "npm run test -- --headed",
+    "browserTest": "npm run test -- --browser chrome",
+    "recordDashboardTest": "npm run test -- --record --key 718ab127-7939-4cf5-9039-6cca4bdf9149 --reporter mochawesome",
+    "parallelTest": "npm run test-- --headed --browser chrome --parallel"
   },
   "author": "Aleksandar Jovanovic",
   "license": "ISC",
