@@ -9,7 +9,7 @@
     "browserTest": "npm run test -- --browser chrome",
     "recordDashboardTest": "npm run test -- --record --key 718ab127-7939-4cf5-9039-6cca4bdf9149 --reporter mochawesome",
     "parallelTest": "npm run test-- --headed --browser chrome --parallel",
-    "oneTest": "npm run test-- --record --key 718ab127-7939-4cf5-9039-6cca4bdf9149 --spec cypress/integration/examples/Test10-POD.js --headed --browser chrome"
+    "oneTest": "npm run test-- --record --key 718ab127-7939-4cf5-9039-6cca4bdf9149 --spec cypress/integration/examples/Test10-POD.js --headed --browser chrome --reporter mochawesome"
   },
   "author": "Aleksandar Jovanovic",
   "license": "ISC",
