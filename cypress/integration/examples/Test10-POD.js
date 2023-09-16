@@ -1,15 +1,15 @@
 /// <reference types="Cypress" />
 
 //class import
-import '../pageObjects/HomePage.js'
-import HomePage from '../pageObjects/HomePage.js'
-import ProductPage from '../pageObjects/ProductPage.js'
-import CheckoutPage from '../pageObjects/CheckoutPage.js'
-import PurchasePage from '../pageObjects/PurchasePage.js'
+import '../../support/pageObjects/HomePage.js'
+import HomePage from '../../support/pageObjects/HomePage.js'
+import ProductPage from '../../support/pageObjects/ProductPage.js'
+import CheckoutPage from '../../support/pageObjects/CheckoutPage.js'
+import PurchasePage from '../../support/pageObjects/PurchasePage.js'
 
 describe('My 10th Test Suite', function() {
 
-    before(() =>
+    this.before(() =>
     {
         cy.fixture('example').then(function(data)
         {
