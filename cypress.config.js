@@ -14,8 +14,8 @@ async function setupNodeEvents(on, config) {
 
 module.exports = defineConfig({
   e2e: {
-    // specPattern: 'cypress/integration/examples/*.js', //js test files
-    specPattern: 'cypress/integration/examples/BDD/*.feature', //cucumber(gherkin)
+    specPattern: 'cypress/integration/examples/*.js', //js test files
+    // specPattern: 'cypress/integration/examples/BDD/*.feature', //cucumber(gherkin)
 
     //call setupNodeEvents global function
     setupNodeEvents

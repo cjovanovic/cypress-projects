@@ -5,7 +5,7 @@ Feature: End to End Ecommerce validation
     Scenario: Ecommerce products delivery
     Given I open eCommerce Page
     When I add items to Cart
-    Then Validate the total price
+    When Validate the total price
     Then Select country, check checkbox and verify the success message
 
     @Smoke
@@ -14,5 +14,5 @@ Feature: End to End Ecommerce validation
     When I fill the form details
     | name | gender |
     | Boby | Male   |
-    Then Validate the form behaviour
+    When Validate the form behaviour
     Then Select the Shop Page

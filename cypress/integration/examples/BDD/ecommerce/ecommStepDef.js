@@ -5,7 +5,7 @@ import HomePage from '../../../../support/pageObjects/HomePage.js'
 import ProductPage from '../../../../support/pageObjects/ProductPage.js'
 import CheckoutPage from '../../../../support/pageObjects/CheckoutPage.js'
 import PurchasePage from '../../../../support/pageObjects/PurchasePage.js'
-import { Given, When, Then, And } from "@badeball/cypress-cucumber-preprocessor";
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 const homePage = new HomePage()
 const productPage = new ProductPage()
@@ -19,7 +19,7 @@ Given('I open eCommerce Page', () =>
 })
 
 //When I add items to Cart 
-When('I add items to Cart', function () //not work with "() =>"!!!!!!!!!!!!!!!
+When('I add items to Cart', function () //not work with "() =>"!!!!!
 {
     homePage.getShopTab().click()  
     this.data.productName.forEach(function(element)
@@ -29,8 +29,8 @@ When('I add items to Cart', function () //not work with "() =>"!!!!!!!!!!!!!!!
     productPage.checkOutButton().click()
 })
 
-//Then Validate the total price
-Then('Validate the total price', () =>
+//When Validate the total price
+When('Validate the total price', () =>
 {
     let sum = 0
 
@@ -86,8 +86,8 @@ When('I fill the form details', function(dataTable)
     homePage.getGender().select(dataTable.rawTable[1][1])
 })
 
-//Then Validate the form behaviour
-Then('Validate the form behaviour', function()
+//When Validate the form behaviour
+When('Validate the form behaviour', function()
 {
     //[name, gender] [Boby, Male]
     // homePage.getTwoWayDataBinding().should('have.value', dataTable.rawTable[1][0])
