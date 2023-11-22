@@ -9,7 +9,7 @@ import PurchasePage from '../../support/pageObjects/PurchasePage.js'
 
 describe('My 10th Test Suite', function() {
 
-    this.before(() =>
+    before(() =>
     {
         cy.fixture('example').then(function(data)
         {

@@ -14,8 +14,9 @@
   "author": "Aleksandar Jovanovic",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^12.15.0",
-    "cypress-iframe": "^1.0.1"
+    "cypress": "^13.5.0",
+    "cypress-iframe": "^1.0.1",
+    "cypress-sql-server": "^1.0.0"
   },
   "cypress-cucumber-preprocessor": {
     "json": {
@@ -27,6 +28,8 @@
     "@badeball/cypress-cucumber-preprocessor": "^18.0.4",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@cypress/browserify-preprocessor": "latest",
-    "multiple-cucumber-html-reporter": "^3.5.0"
+    "convert-excel-to-json": "^1.7.0",
+    "multiple-cucumber-html-reporter": "^3.5.0",
+    "neat-csv": "^5.1.0"
   }
 }

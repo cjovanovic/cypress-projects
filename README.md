@@ -142,7 +142,6 @@ Run Cypress Tests via Scripts (package.json)
 }
 
 
-
 Cypress Config 
 Update configurations in cypress.config.js (cypress.json) which overrides existing behaviour
 
@@ -288,6 +287,23 @@ cy.fixture() -> use to 'talk' with files present in fixtures folder (for pulling
 cy.fixture() -> runs before all tests in the block (before/beforeEach hooks)
 cy.fixture().then(function(data) {}) -> always need to resolve the promise!
 
+Note: Promise can be resolved via '.then(function(data) {})' or it can be resolved if prefix with 'await' keyword, example:
+
+async function(text)
+{
+	const csv = await neatCsv(text)	//be aware that async and await always comes together!!!!!
+}
+
+
+
+Cypress Hooks
+before()=> {} -> mocha function executed once before all tests in the block
+beforeEach()=> {} -> mocha function executed before each and every test/scenario
+after()=> {} -> mocha function executed once after all tests in the block
+afterEach()=> {} -> mocha function executed after each and every test/scenario
+
+Note: In case when using the hook to load the DATA variable cannot use fat arrow "() =>" operator - it won't work since the feature is not implemented yet -> use the old one "function()" 
+
 
 Cypress Customized Commands
 support/commands.js -> use this feature to avoid hardcoding data in tests and to be able to reuse the code at the same time
@@ -300,7 +316,95 @@ Be aware that you can find out more in browser console for every single step - u
 
 *******************************************************************************************
 
+Cypress Intercept
+cy.intercept() -> modify real HTTP responses, change the body, headers or HTTP status code before they are received
+ 			    by the browser
+cy.intercept() -> modify an HTTP request's body, headers and URL before it is sent to the destination server
+cy.intercept() -> helps us to perform Integration Testing between UI and BE services
+cy.intercept() -> watch (request Url, Method...), intercept and mock the body based on the response object property
+cy.intercept({requestObjectProperties}, {responseObjectProperties})
+
+*******************************************************************************************
+
+Cypress Request - API
+cy.request() -> make an HTTP request -> trigger an API call
+cy.request(url)
+cy.request(url, body)
+cy.request(method, url) 
+cy.request(method, url, body) 
+cy.request(options)
+
+*******************************************************************************************
+
+Cypress Node
+cy.task() -> directly execute the code in Node via 'task' plugin event/method
+
+Example
+
+Create a new task in cypress.config.js:
+on('task', {
+	excelToJsonConverter(filePath)
+ 	{
+		const result = excelToJson({
+   		source: fs.readFileSync(filePath) // fs.readFileSync return a Buffer
+  		})
+		
+		return result;	
+ 	}
+})
+
+Calling a task event in spec file:
+cy.task('excelToJsonConverter', filePath).then(function(result){
+	cy.log(result)
+})
+
+*******************************************************************************************
+
+Cypress Read File
+
+cy.readFile(filePath) -> returns the content present in a file 'filePath'
+
+Note: Don't forget to resolve the promise!
+Not a best practice since it can be used only to validate the content in the e.g. excel file and not to compare it and validate!
+
+*******************************************************************************************
+
+Cypress CSV/Excel
+
+Excel
+
+npm install convert-excel-to-json -> install convertor plugin
+
+Converting xlsx as a Buffer:
+const excelToJson = require('convert-excel-to-json')
+const fs = require('fs') -> fs == module for accessing file system
+
+const filePath = Cypress.config('fileServerFolder') + '/cypress/downloads/order-invoice_m.tatatu.test.xlsx'
+
+const result = excelToJson({
+	source: fs.readFileSync() // fs.readFileSync return a Buffer
+})
+
+IMPORTANT!
+Browser(Engine) - JS code - Client Side Environment (Front End) - Cypress
+
+Node (Engine) - JS code - Back End applications/Environment
+	Accessing files - fs, Database access….
+
+	// create a command in config and call it through 'cy.task'
+	Task - (Files, DB) -> cypress.config.js, (ExcelToJson) -> cy.task(ExcelToJson)
+
+CSV
+
+*******************************************************************************************
+
+Cypress Downloads
+npm i neat-csv@5.1.0 -> install 5.1.0 version which is a bit more stable regarding 7.0.0
+
+*******************************************************************************************
+
 Cypress Page object Design
+
 CREATE NEW CLASS FOR EVERY PAGE AND DECLARE ALL THE PAGE OBJECTS ->
 EXPORT THAT PARTICULAR CLASS -> 
 IMPORT IN TEST AND CREATE AN OBJECT FOR THAT CLASS WITH THE IMPORT KEYWORD!!!!!!!!!
@@ -340,7 +444,7 @@ Note: Don't forget to install NodeJS plugin, add via Tools and Provide Node & np
 
 *******************************************************************************************
 
-Install/Set Cypress BDD Cucumber
+Install/Configuration Cypress BDD Cucumber
 npm install @badeball/cypress-cucumber-preprocessor		(install cucumber plugin)
 cypress.config.js/setupNodeEvents -> add all cucumber plugins (preprocessor & browserify -> check docs!) 
 								 under this function -> define it on global level and call inside "e2e"
@@ -365,7 +469,8 @@ Feature: End to End Ecommerce validation
 	| name | gender |	(data driven testing using cucumber data table)
 	| Boby  | Male 	   |
 	Then Validate the form behaviour
-	And Select the Shop page
+	And Select the Shop page -> And is now deprecated!!!! 
+							  change it in relation of which family (When or Then) belongs to
  
 Note: Every step need to be defined/implemented into Step Definition files built with real cypress code (.js file)!
 
@@ -396,9 +501,54 @@ node cucumber-html-report.js -> execute the js file to generate html report of p
 
 *******************************************************************************************
 
+Cypress SQL server with Azure
+
+npm install --save-dev cypress-sql-server -> install SQL server
+
+
+Set cypress.config.js
+
+Import SQL server:
+const sqlServer = require('cypress-sql-server');
+
+Register sql server (load plugins) inside 'setupNodeEvents' by adding:
+
+tasks = sqlServer.loadDBPlugin(config.db);
+	on('task'. tasks);
+
+Define 'db' variable -> nested as first inside 'setupNodeEvents':
+
+Example
+
+config.db = {
+	userName: "alexdb",
+	password: "Testing!24",
+	server: "alexdbdemo.database.windows.net",
+	options: {
+		database: "alexacademy",
+		encrypt: true,
+		rowCollectionOnRequestCompletion: true
+	}
+}
+All data are from Azure db set - https://portal.azure.com/#@cjovanovic83hotmail.onmicrosoft.com/resource/subscriptions/bcf5fd12-c525-493d-95ae-b1e5c679a5cd/resourceGroups/db/providers/Microsoft.Sql/servers/alexdbdemo/databases/alexacademy/queryEditor 
+
+Set support/e2e.js
+
+Loading DB commands:
+
+import sqlServer from 'cypress-sql-server';
+sqlServer.loadDBCommands();
+
+
+For more info refer to the https://www.npmjs.com/package/cypress-sql-server 
+
+*******************************************************************************************
+
 JavaScript Variables
 var & let -> create variables that can be reassigned another value -> can be reused again!
 const -> creates 'constant' variables that cannot be reassigned another value -> cannot be reused again!
 Try not to use 'var' anymore - use 'let' instead
 
-*******************************************************************************************
+
+
+
